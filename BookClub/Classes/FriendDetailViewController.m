@@ -30,6 +30,7 @@
     [singleTap setNumberOfTapsRequired:1];
     singleTap.delegate = self;
     [self.friendImageView addGestureRecognizer:singleTap];
+    
     self.moc = [self.selected managedObjectContext];
 }
 
@@ -49,6 +50,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     Book *book = [self.bookArray objectAtIndex:indexPath.row];
     cell.textLabel.text = book.title;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Comments: %lu", (unsigned long)book.comments.count];
     cell.imageView.image = [UIImage imageWithData:book.bookImage];
     return cell;
 }
@@ -109,8 +111,7 @@
 
     [self.selected addFriendsObject:newPerson];
     [self.moc save:nil];
-
-
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

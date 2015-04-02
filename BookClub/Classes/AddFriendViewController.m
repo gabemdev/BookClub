@@ -54,7 +54,6 @@
 
 #pragma mark - Actions
 - (void)loadFriends {
-
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([Person class])];
     request.predicate = [NSPredicate predicateWithFormat:@"name != %@", @"Friend"];
     self.friendsArray = [self.moc executeFetchRequest:request error:nil];

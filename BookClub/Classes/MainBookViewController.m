@@ -39,11 +39,11 @@
 }
 
 #pragma mark - Helper Methods
-- (void)sortFriends:(BOOL)isAscending {
+- (void)sort:(BOOL)isAscending {
     //http://stackoverflow.com/questions/20531319/coredata-fetch-with-nssortdescriptor-by-count-of-to-many-relationship
-    NSSortDescriptor *sortBookCount = [NSSortDescriptor sortDescriptorWithKey:@"suggestions.@count" ascending:isAscending];
+    NSSortDescriptor *sortByCount = [NSSortDescriptor sortDescriptorWithKey:@"suggestions.@count" ascending:isAscending];
     NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    NSArray *sortedFriends = [[self.person.friends allObjects] sortedArrayUsingDescriptors:@[sortBookCount, sortByName]];
+    NSArray *sortedFriends = [[self.person.friends allObjects] sortedArrayUsingDescriptors:@[sortByCount, sortByName]];
     self.friends = sortedFriends;
     [self.tableView reloadData];
 }
@@ -52,7 +52,7 @@
     request.predicate = [NSPredicate predicateWithFormat:@"name == %@", @"Friend"];
     NSArray *userArray = [self.moc executeFetchRequest:request error:nil];
     self.person = userArray.firstObject;
-    [self sortFriends:self.isAscending];
+    [self sort:self.isAscending];
 }
 
 #pragma mark - UITableViewDataSource

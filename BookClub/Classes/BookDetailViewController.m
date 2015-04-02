@@ -21,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = self.book.title;
     self.moc = [self.book managedObjectContext];
 }
 
@@ -43,7 +42,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+//    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+//    tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 150)];
+//    tableView.tableHeaderView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithData:[NSData dataWithData:self.book.bookImage]]];
+
+    tableView.tableHeaderView.contentMode = UIViewContentModeScaleToFill;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     Comment *comment = [self.commentsArray objectAtIndex:indexPath.row];
     cell.textLabel.text = comment.commentString;
@@ -63,7 +66,7 @@
 
 
     UILabel *bookTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, tableView.frame.size.width, 32)];
-    bookTitle.text = [NSString stringWithFormat:@"Author: %@",self.book.title];
+    bookTitle.text = [NSString stringWithFormat:@"Title: %@",self.book.title];
     bookTitle.textColor = [UIColor colorWithRed:0.10 green:0.53 blue:0.76 alpha:1.00];
     bookTitle.font = [UIFont fontWithName:@"Avenir-Heavy" size:20];
 
